@@ -29,6 +29,11 @@ public class CommonDataModel implements Serializable{
     @Column(unique = true, columnDefinition = "LONGTEXT")
     private String hash;
 
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : super.hashCode();
+    }
+
     public String getId() {
         return id;
     }

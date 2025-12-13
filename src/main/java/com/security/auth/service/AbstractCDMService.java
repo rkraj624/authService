@@ -17,15 +17,15 @@ public class AbstractCDMService<T extends CommonDataModel> implements CommonData
 
     @Override
     public T save(T cdmObj) {
-
-        if(cdmObj.getHash() != null){
-            T byHash = repository.findByHash(cdmObj.getHash());
-            cdmObj.setId(byHash.getId());
-            cdmObj.setVersion(byHash.getVersion()+1);
+        String hash = String.valueOf(cdmObj.hashCode());
+        T byHash = repository.findByHash(hash);
+        if(byHash != null){
+            return byHash;
         }
-
+        cdmObj.setVersion(0);
         cdmObj.setCreationTime(new Date());
         cdmObj.setLastModifiedTime(new Date());
+        cdmObj.setHash(hash);
         return repository.save(cdmObj);
     }
 }

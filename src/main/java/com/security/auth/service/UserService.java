@@ -4,19 +4,27 @@ import com.security.auth.dto.UserDTO;
 import com.security.auth.model.User;
 import com.security.auth.repository.CommonJPARepository;
 import com.security.auth.repository.UserRepository;
-import tools.jackson.databind.ObjectMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Service
 public class UserService extends AbstractCDMService<User>{
 
     private final UserRepository userRepository;
-    ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public UserService(UserRepository userRepository) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         super(userRepository);
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-    private User createUser(UserDTO userDTO){
+    public User createUser(UserDTO userDTO){
         User user = objectMapper.convertValue(userDTO, User.class);
+        String password = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(password);
         return super.save(user);
     }
 }

@@ -1,8 +1,10 @@
 package com.security.auth.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import org.jspecify.annotations.NonNull;
-
 
 import java.io.Serial;
 import java.util.Set;
@@ -15,12 +17,17 @@ public class User extends CommonDataModel {
     private static final long serialVersionUID = 2141479273835303378L;
 
     private String name;
-
+    @Column(unique = true)
     private String email;
 
     private String password;
 
     private Set<String> roles;
+
+    @Override
+    public int hashCode() {
+        return getEmail() != null ? getEmail().hashCode() : super.hashCode();
+    }
 
     public String getName() {
         return name;
