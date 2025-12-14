@@ -4,9 +4,12 @@ import com.security.auth.dto.UserDTO;
 import com.security.auth.model.User;
 import com.security.auth.repository.CommonJPARepository;
 import com.security.auth.repository.UserRepository;
+import com.security.auth.security.jwt.JWTUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Optional;
 
 @Service
 public class UserService extends AbstractCDMService<User>{
@@ -26,5 +29,9 @@ public class UserService extends AbstractCDMService<User>{
         String password = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(password);
         return super.save(user);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
     }
 }
