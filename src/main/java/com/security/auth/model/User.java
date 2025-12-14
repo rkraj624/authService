@@ -7,6 +7,8 @@ import jakarta.persistence.Table;
 import org.jspecify.annotations.NonNull;
 
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,8 +55,8 @@ public class User extends CommonDataModel {
         this.password = password;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+    public List<String> getRoles() {
+        return new ArrayList<>(roles);
     }
 
     public void setRoles(Set<String> roles) {

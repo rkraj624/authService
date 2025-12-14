@@ -14,6 +14,7 @@ public class JWTUser implements UserDetails {
     private String password;
     private List<String> roles;
     private Collection<? extends GrantedAuthority> authorities;
+    private String token;
 
     private JWTUser() {
     }
@@ -79,11 +80,20 @@ public class JWTUser implements UserDetails {
         return true;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public static final class Builder {
         private String username;
         private String password;
         private List<String> roles;
         private Collection<? extends GrantedAuthority> authorities;
+        private String token;
 
         private Builder() {
         }
@@ -105,6 +115,10 @@ public class JWTUser implements UserDetails {
 
         public Builder authorities(Collection<? extends GrantedAuthority> authorities) {
             this.authorities = authorities;
+            return this;
+        }
+        public Builder token(String token){
+            this.token = token;
             return this;
         }
 

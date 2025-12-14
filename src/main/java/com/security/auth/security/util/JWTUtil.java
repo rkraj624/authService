@@ -7,6 +7,7 @@ import io.jsonwebtoken.security.Keys;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Map;
 import javax.crypto.SecretKey;
 
 public class JWTUtil {
@@ -16,6 +17,7 @@ public class JWTUtil {
     public static String generateToken(String username, long expiryMinutes) {
         return Jwts.builder()
                 .subject(username)
+                .claims(Map.of("user", username, "role","ROLE_USER"))
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiryMinutes * 60_000L))
                 .signWith(KEY, Jwts.SIG.HS256)
@@ -33,6 +35,24 @@ public class JWTUtil {
         } catch (JwtException | IllegalArgumentException e) {
             return null;
         }
+    }
+
+    public static boolean isValidToken(String token){
+        try {
+            Jwts.parser().verifyWith(KEY).build().parseSignedClaims(token);
+            return true;
+        }catch (JwtException | IllegalArgumentException e) {
+            return false;
+        }
+
+    }
+
+    public static Claims getAllClaims(String token){
+        return Jwts.parser()
+                .verifyWith(KEY)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
 

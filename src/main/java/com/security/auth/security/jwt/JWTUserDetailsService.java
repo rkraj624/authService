@@ -5,7 +5,9 @@ import com.security.auth.service.UserService;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class JWTUserDetailsService implements UserDetailsService {
     private final UserService userService;
 
