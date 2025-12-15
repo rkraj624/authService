@@ -1,10 +1,8 @@
 package com.security.auth.model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import org.jspecify.annotations.NonNull;
 
 import java.io.Serial;
 import java.util.ArrayList;

@@ -4,8 +4,6 @@ import com.security.auth.dto.LoginDTO;
 import com.security.auth.dto.LoginResponse;
 import com.security.auth.model.User;
 import com.security.auth.security.util.JWTUtil;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
