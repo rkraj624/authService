@@ -6,13 +6,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service
 public class AbstractCDMService<T extends CommonDataModel> implements CommonDataModelService<T> {
 
-    private final CommonJPARepository<T, String> repository;
+    protected CommonJPARepository<T, String> repository;
 
     public AbstractCDMService(CommonJPARepository<T, String> repository) {
         this.repository = repository;
+    }
+
+    public  CommonJPARepository<T, String> getRepository() {
+        return repository;
     }
 
     @Override

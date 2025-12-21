@@ -2,14 +2,12 @@ package com.security.auth.service;
 
 import com.security.auth.dto.UserDTO;
 import com.security.auth.model.User;
-import com.security.auth.repository.CommonJPARepository;
 import com.security.auth.repository.UserRepository;
-import com.security.auth.security.jwt.JWTUser;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class UserService extends AbstractCDMService<User>{
@@ -33,5 +31,9 @@ public class UserService extends AbstractCDMService<User>{
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }
